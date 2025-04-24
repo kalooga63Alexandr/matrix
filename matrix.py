@@ -63,31 +63,24 @@ async def get_matrix(url):
                             result.append(matrix[i][left])
                         left += 1
 
-                # Обход нижней строки
+                        # Обход нижней строки
                         for i in range(left, right + 1):
                             result.append(matrix[bottom][i])
                         bottom -= 1
+
                     if top <= bottom:
                         # Обход правого столбца (снизу вверх)
                         for i in range(bottom, top - 1, -1):
                             result.append(matrix[i][right])
                         right -= 1
+
                     if left <= right:
                         # Обход верхней строки
                         for i in range(right, left - 1, -1):
                             result.append(matrix[top][i])
                         top += 1
-                print(result)
+
                 return result
-                """
-                # Парсим JSON
-                data = await resp.json()
-
-                # Извлекаем матрицу и превращаем её в плоский список
-                matrix = data.get('matrix', [])
-                flat_list = [element for row in matrix for element in row]
-
-                return flat_list"""
 
         except aiohttp.ClientConnectorError as conn_err:
             print(
@@ -104,13 +97,9 @@ async def get_matrix(url):
             print(f"Возникла непредвиденная ошибка: {general_err}.")
             return []
 
-# Пример использования
 
-
-async def main():
-    # Меняйте URL на нужный вам
+async def get_matrix():
     url = 'https://raw.githubusercontent.com/avito-tech/python-trainee-assignment/main/matrix.txt'
     result = await get_matrix(url)
 
-
-asyncio.run(main())
+asyncio.run(get_matrix())
